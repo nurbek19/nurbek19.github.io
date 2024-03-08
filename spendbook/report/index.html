@@ -30,6 +30,40 @@
               const dropdownMenu = $('.select-options');
               const dropdownInput = $('.hidden-input');
 
+              const searchParams = new URLSearchParams(window.location.search);
+              const chatId = searchParams.get("chatId");
+
+              fetch(`https://spendbook.ru/categories?chatId=${chatId}`)
+                  .then((response) => response.json())
+                  .then((userCategories) => {
+                      $.each(userCategories, function (key, str) {
+                          $('#category-dropdown').append(
+                              `<li class="select-option" data-value="${str}">
+                                ${str}
+
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
+                                    <span class="checkmark"></span>
+                                </label>
+                               </li>`
+                          )
+                      });
+                  })
+                  .catch((error) => {
+                      console.error(error);
+
+                      $('#category-dropdown').append(
+                          `<li class="select-option" data-value="${str}">
+                                ${str}
+
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
+                                    <span class="checkmark"></span>
+                                </label>
+                               </li>`
+                      )
+                  });
+
               dropdownButton.on('click', function () {
                   dropdownMenu.toggleClass('select-options-visible');
                   $(this).toggleClass('dropdown__button_active');
@@ -99,7 +133,14 @@
   </head>
 
   <body>
-  <dotlottie-player src="https://lottie.host/244ea692-5ea7-43fb-9bf3-70674a35ee80/1NzNvDbx72.json" background="transparent" speed="1" style="width: 100%; height: 100px; text-align: center;" loop autoplay></dotlottie-player>
+<!--  <dotlottie-player src="https://lottie.host/244ea692-5ea7-43fb-9bf3-70674a35ee80/1NzNvDbx72.json" background="transparent" speed="1" style="width: 100%; height: 100px; text-align: center;" loop autoplay></dotlottie-player>-->
+
+  <div class="report-buttons">
+      <div class="buttons-wrapper">
+          <button>Отчет по месяцу</button>
+          <button>Отчет по категории</button>
+      </div>
+  </div>
 
   <form class="form">
     <div class="field-wrapper">
@@ -107,6 +148,14 @@
       <button class="select-button" type="button">Месяц</button>
     </div>
     <ul id="custom-dropdown" class="select-options"></ul>
+
+      <div>
+          <div class="field-wrapper">
+              <span class="label">Категория</span>
+              <button class="select-button" type="button">Категория</button>
+          </div>
+          <ul id="category-dropdown" class="select-options"></ul>
+      </div>
 
     <label class="hidden-input-label" for="select-value">
       <input id="select-value" class="hidden-input" type="text" name="select-category" value=""/>

@@ -223,3 +223,29 @@ input[type=number] {
 .checkbox-label input:checked ~ .checkmark {
     background-image: url('./images/rotate-ccw.svg');
 }
+
+.report-buttons {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.buttons-wrapper {
+    display: flex;
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 1fr;*/
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /*border-bottom: 1px solid var(--tg-theme-bg-color);*/
+    border-bottom: 1px solid #eee;
+}
+
+.buttons-wrapper button {
+    font-size: 14px;
+
+    width: 100%;
+    padding: 15px;
+
+    border: none;
+    border-radius: 8px;
+}
