@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../styles.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="../js/dropDowns.js"></script>
     <script>
           const months = [
@@ -26,100 +25,138 @@
           ];
 
           $(document).ready(function () {
-              const dropdownButton = $('.select-button');
-              const dropdownMenu = $('.select-options');
-              const dropdownInput = $('.hidden-input');
-
               const searchParams = new URLSearchParams(window.location.search);
               const chatId = searchParams.get("chatId");
 
-              fetch(`https://spendbook.ru/categories?chatId=${chatId}`)
-                  .then((response) => response.json())
-                  .then((userCategories) => {
-                      $.each(userCategories, function (key, str) {
-                          $('#category-dropdown').append(
-                              `<li class="select-option" data-value="${str}">
-                                ${str}
+              const dropdownInput = $('.hidden-input');
+              let categoriesFromServer;
 
-                                <label class="checkbox-label">
-                                    <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
-                                    <span class="checkmark"></span>
-                                </label>
-                               </li>`
-                          )
-                      });
-                  })
-                  .catch((error) => {
-                      console.error(error);
+              $('.custom-select').each(function () {
+                  const dropdownButton = $(this).children('.field-wrapper').children('.select-button');
+                  const dropdownMenu = $(this).children('.select-options');
 
-                      $('#category-dropdown').append(
-                          `<li class="select-option" data-value="${str}">
-                                ${str}
-
-                                <label class="checkbox-label">
-                                    <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
-                                    <span class="checkmark"></span>
-                                </label>
-                               </li>`
-                      )
+                  dropdownButton.on('click', function () {
+                      dropdownMenu.toggleClass('select-options-visible');
+                      $(this).toggleClass('dropdown__button_active');
                   });
 
-              dropdownButton.on('click', function () {
-                  dropdownMenu.toggleClass('select-options-visible');
-                  $(this).toggleClass('dropdown__button_active');
-              });
+                  if (dropdownMenu.attr('id') === 'custom-dropdown') {
+                      dropdownInput.val(new Date().getMonth()+1);
 
-              $(document).on('keydown', function (e) {
-                  if( e.key === 'Tab' || e.key === 'Escape' ) {
-                      dropdownButton.removeClass('dropdown__button_active');
-                      dropdownMenu.removeClass('select-options-visible');
+                      const m = new Date().getMonth()+1
+                      const currentMonth = months.find((item) => item.value === m.toString())
+                      dropdownButton.html(currentMonth.text)
+
+                      $.each(months, function (key, obj) {
+                          dropdownMenu.append(`<li class="select-option" value="${obj.value}">${obj.text}</li>`);
+                      });
                   }
-              })
 
-              $.each(months, function (key, obj) {
-                  $("#custom-dropdown").append(`<li class="select-option" value="${obj.value}">${obj.text}</li>`);
-              });
+                  if (dropdownMenu.attr('id') === 'category-dropdown') {
+                      fetch(`https://spendbook.ru/categories?chatId=${chatId}`)
+                          .then((response) => response.json())
+                          .then((userCategories) => {
+                              categoriesFromServer = userCategories
 
-              $(document).on('click', '.select-option', function() {
-                  $('.select-options .select-option').each(function (){
-                      if ($(this).hasClass('selected')) {
-                          $(this).removeClass('selected')
+                              $.each(userCategories, function (key, str) {
+                                  dropdownMenu.append(
+                                      `<li class="select-option" value="${str}">
+                                        ${str}
+                                       </li>`
+                                  )
+                              });
+                          })
+                          .catch((error) => {
+                              console.error(error);
+                              categoriesFromServer = categories
+
+                              $.each(categories, function (key, str) {
+                                  if (str !== 'Ввести свою категорию') {
+                                      dropdownMenu.append(
+                                          `<li class="select-option" value="${str}">${str}</li>`
+                                      )
+                                  }
+                              })
+                          });
+                  }
+
+                  dropdownMenu.on('click', '.select-option', function() {
+                      dropdownMenu.children('.select-option').each(function (){
+                          if ($(this).hasClass('selected')) {
+                              $(this).removeClass('selected')
+                          }
+                      })
+
+                      $(this).addClass('selected')
+                      dropdownButton.html($(this).text())
+                      dropdownInput.val($(this).attr('value'))
+                      dropdownMenu.removeClass('select-options-visible')
+
+                      collectData();
+                  });
+
+
+                  $(document).on('keydown', function (e) {
+                      if( e.key === 'Tab' || e.key === 'Escape' ) {
+                          dropdownButton.removeClass('dropdown__button_active');
+                          dropdownMenu.removeClass('select-options-visible');
                       }
                   })
+              });
 
-                  $(this).addClass('selected')
-                  dropdownButton.html($(this).text())
-                  dropdownInput.val($(this).attr('value'))
-                  dropdownMenu.removeClass('select-options-visible')
+              $('.report-input-label').on('click', function () {
+                  const currentReport = $(this).children('input[name="report"]:checked').val();
 
-                  collectData()
+                  if (currentReport === 'category') {
+                      if (categoriesFromServer?.length) {
+                          dropdownInput.val(categoriesFromServer[0]);
+
+                          $('.category-select .field-wrapper button').html(categoriesFromServer[0])
+                      }
+
+                      $('.category-select').show(300)
+                      $('.month-select').hide(300)
+                  }
+
+                  if (currentReport === 'month') {
+                      dropdownInput.val(new Date().getMonth()+1);
+
+                      const m = new Date().getMonth()+1
+                      const currentMonth = months.find((item) => item.value === m.toString())
+                      $('.month-select .field-wrapper button').html(currentMonth.text)
+
+                      $('.category-select').hide(300)
+                      $('.month-select').show(300)
+                  }
               });
 
 
               function collectData() {
                   const data = {
-                      month: parseInt(dropdownInput.val(), 10),
                       year: parseInt($('input[name="year"]:checked').val(), 10),
                       colorScheme: window.Telegram.WebApp.colorScheme,
                   };
+
+                  const currentReport = $('input[name="report"]:checked').val()
+
+                  if (currentReport === 'category') {
+                      data.category = dropdownInput.val()
+                  } else if (currentReport === 'month') {
+                      data.month = parseInt(dropdownInput.val(), 10)
+                  }
+
                   Object.keys(data).forEach(
                       (key) =>
                           (data[key] =
                               data[key] === "any" || data[key] === "" ? null : data[key])
                   );
 
-                  console.log($('input[name="year"]:checked').val())
+                  console.log(data, currentReport)
+
                   return data;
               }
 
-              // $("#year").on("click", collectData);
-              dropdownInput.val(new Date().getMonth()+1);
-
-              const m = new Date().getMonth()+1
-
-              const currentMonth = months.find((item) => item.value === m.toString())
-
-              dropdownButton.html(currentMonth.text)
+              $('.btn').on('click', collectData)
 
               const mainButton = window.Telegram.WebApp.MainButton;
               mainButton.text = "Получить отчет";
@@ -133,23 +170,27 @@
   </head>
 
   <body>
-<!--  <dotlottie-player src="https://lottie.host/244ea692-5ea7-43fb-9bf3-70674a35ee80/1NzNvDbx72.json" background="transparent" speed="1" style="width: 100%; height: 100px; text-align: center;" loop autoplay></dotlottie-player>-->
-
-  <div class="report-buttons">
-      <div class="buttons-wrapper">
-          <button>Отчет по месяцу</button>
-          <button>Отчет по категории</button>
-      </div>
-  </div>
-
-  <form class="form">
-    <div class="field-wrapper">
-      <span class="label">Месяц</span>
-      <button class="select-button" type="button">Месяц</button>
+<form class="form">
+    <div class="report-buttons">
+        <label class="report-input-label">
+            <input type="radio" name="report" value="month" class="radio-input" checked />
+            <span>Отчет по месяцу</span>
+        </label>
+        <label class="report-input-label">
+            <input type="radio" name="report" value="category" class="radio-input" />
+            <span>Отчет по категории</span>
+        </label>
     </div>
-    <ul id="custom-dropdown" class="select-options"></ul>
 
-      <div>
+    <div class="custom-select month-select">
+        <div class="field-wrapper">
+            <span class="label">Месяц</span>
+            <button class="select-button" type="button">Месяц</button>
+        </div>
+        <ul id="custom-dropdown" class="select-options"></ul>
+    </div>
+
+      <div class="custom-select category-select">
           <div class="field-wrapper">
               <span class="label">Категория</span>
               <button class="select-button" type="button">Категория</button>
@@ -178,5 +219,7 @@
           </label>
       </div>
   </form>
+
+<button class="btn">test</button>
   </body>
 </html>
