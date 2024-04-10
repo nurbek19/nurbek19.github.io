@@ -40,7 +40,7 @@
                     $.each(finalCategories, function (key, str) {
                         if (str === 'Ввести свою категорию') {
                             $('#custom-dropdown').append(
-                                `<li class="select-option" data-value="${str}">${str}</li>`
+                                `<li class="select-option" data-value="${str}"><span>${str}</span></li>`
                             )
                         } else {
                             $('#custom-dropdown').append(
@@ -61,7 +61,7 @@
                     $.each(categories, function (key, str) {
                         if (str === 'Ввести свою категорию') {
                             $('#custom-dropdown').append(
-                                `<li class="select-option" data-value="${str}">${str}</li>`
+                                `<li class="select-option" data-value="${str}"><span>${str}</span></li>`
                             )
                         } else {
                             $('#custom-dropdown').append(
