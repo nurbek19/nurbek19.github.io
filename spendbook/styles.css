@@ -238,7 +238,7 @@ input[type=number] {
 .report-input-label span {
     background-color: var(--tg-theme-secondary-bg-color);
 
-    color: var(--tg-theme-button-text-color);
+    color: var(--tg-theme-text-color);
 
     display: inline-flex;
     justify-content: center;
