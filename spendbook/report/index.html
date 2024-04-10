@@ -31,6 +31,8 @@
               const dropdownInput = $('.hidden-input');
               let categoriesFromServer;
 
+              $('html').attr('class', window.Telegram.WebApp.colorScheme);
+
               $('.custom-select').each(function () {
                   const dropdownButton = $(this).children('.field-wrapper').children('.select-button');
                   const dropdownMenu = $(this).children('.select-options');
