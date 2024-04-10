@@ -33,8 +33,6 @@
                 }
             })
 
-            $('html').attr('class', window.Telegram.WebApp.colorScheme);
-
             fetch(`https://spendbook.ru/categories?chatId=${chatId}`)
                 .then((response) => response.json())
                 .then((userCategories) => {
@@ -47,7 +45,7 @@
                         } else {
                             $('#custom-dropdown').append(
                                 `<li class="select-option" data-value="${str}">
-                                ${str}
+                                <span>${str}</span>
 
                                 <label class="checkbox-label">
                                     <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
@@ -68,7 +66,7 @@
                         } else {
                             $('#custom-dropdown').append(
                                 `<li class="select-option" data-value="${str}">
-                                ${str}
+                                <span>${str}</span>
 
                                 <label class="checkbox-label">
                                     <input type="checkbox" class="option-checkbox" name="category-checkbox" value="${str}">
@@ -94,7 +92,7 @@
                 })
 
                 $(this).addClass('selected')
-                dropdownButton.html($(this).text())
+                dropdownButton.html($(this).children('span').text())
                 dropdownInput.val($(this).attr('data-value'))
                 dropdownMenu.removeClass('select-options-visible')
 
