@@ -112,6 +112,16 @@
                           dropdownInput.val(categoriesFromServer[0]);
 
                           $('.category-select .field-wrapper button').html(categoriesFromServer[0])
+
+                          $('#category-dropdown .select-option').each(function (){
+                              if ($(this).hasClass('selected')) {
+                                  $(this).removeClass('selected')
+                              }
+
+                              if ($(this).attr('value') === categoriesFromServer[0]) {
+                                  $(this).addClass('selected')
+                              }
+                          })
                       }
 
                       $('.category-select').show(300)
@@ -124,6 +134,18 @@
                       const m = new Date().getMonth()+1
                       const currentMonth = months.find((item) => item.value === m.toString())
                       $('.month-select .field-wrapper button').html(currentMonth.text)
+
+                      $('#custom-dropdown .select-option').each(function (){
+                          if ($(this).hasClass('selected')) {
+                              $(this).removeClass('selected')
+                          }
+
+                          console.log($(this).attr('value'), m, $(this).attr('value') === m)
+
+                          if ($(this).attr('value') === m.toString()) {
+                              $(this).addClass('selected')
+                          }
+                      })
 
                       $('.category-select').hide(300)
                       $('.month-select').show(300)
