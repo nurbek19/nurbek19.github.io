@@ -6,7 +6,7 @@ import PriceField from './components/PriceField';
 import './App.css';
 
 
-const CITIES = ['Бишкек', 'Нарын', 'Каракол', 'Ош']
+const CITIES = ['Бишкек', 'Нарын', 'Каракол', 'Ош'];
 
 function App() {
   const [city, setCity] = useState(CITIES[0]);
@@ -55,8 +55,10 @@ function App() {
       }
 
       WebApp.MainButton.show();
+      WebApp.MainButton.onClick(() => WebApp.sendData(payload))
       console.log(payload);
-      
+    } else {
+      WebApp.MainButton.hide();
     }
 
   }, [city, address, room, phone, price])

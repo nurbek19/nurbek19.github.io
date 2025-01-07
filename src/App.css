@@ -35,8 +35,8 @@ body {
 }
 
 .select-field {
-    /* background-color: var(--tg-theme-secondary-bg-color); */
-    background-color: #eee;
+    background-color: var(--tg-theme-secondary-bg-color);
+    /* background-color: #eee; */
 
     font-size: 18px;
     color: var(--tg-theme-text-color);
@@ -54,8 +54,8 @@ body {
 }
 
 .text-field {
-    /* background-color: var(--tg-theme-secondary-bg-color); */
-    background-color: #eee;
+    background-color: var(--tg-theme-secondary-bg-color);
+    /* background-color: #eee; */
 
     font-size: 18px;
     color: var(--tg-theme-text-color);
@@ -79,8 +79,8 @@ body {
 .radio-input-label {
     position: relative;
 
-    /* border-right: 1px solid var(--tg-theme-bg-color); */
-    border-right: 1px solid #000;
+    border-right: 1px solid var(--tg-theme-bg-color);
+    /* border-right: 1px solid #000; */
 
     overflow: hidden;
     cursor: pointer;
@@ -114,8 +114,8 @@ body {
     display: inline-flex;
     justify-content: center;
     box-sizing: border-box;
-    /* background-color: var(--tg-theme-secondary-bg-color); */
-    background-color: #eee;
+    background-color: var(--tg-theme-secondary-bg-color);
+    /* background-color: #eee; */
 
     width: 100%;
     padding: 10px;
@@ -124,8 +124,8 @@ body {
 }
 
 .radio-input:checked + .radio-input-text {
-    /* background-color: var(--tg-theme-button-color); */
-    background-color: blue;
+    background-color: var(--tg-theme-button-color);
+    /* background-color: blue; */
     color: var(--tg-theme-button-text-color)
 }
 
@@ -147,8 +147,8 @@ body {
 }
 
 .checkmark {
-    /* background-color: var(--tg-theme-secondary-bg-color); */
-    background-color: #eee;
+    background-color: var(--tg-theme-secondary-bg-color);
+    /* background-color: #eee; */
     display: block;
     width: 25px;
     height: 25px;
@@ -156,8 +156,8 @@ body {
 }
 
 .checkbox-label input:checked ~ .checkmark {
-    /* background-color: var(--tg-theme-button-color); */
-    background-color: blue;
+    background-color: var(--tg-theme-button-color);
+    /* background-color: blue; */
 }
 
 .checkmark:after {
@@ -191,8 +191,8 @@ body {
   }
 
   .price-input {
-    /* background-color: var(--tg-theme-secondary-bg-color); */
-    background-color: #eee;
+    background-color: var(--tg-theme-secondary-bg-color);
+    /* background-color: #eee; */
 
     font-size: 14px;
     color: var(--tg-theme-text-color);
