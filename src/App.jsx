@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 import { useIMask } from 'react-imask';
 
@@ -18,6 +18,7 @@ function App() {
     night: '',
     day_night: ''
   });
+  const [data, setData] = useState(null);
 
   const {
     ref,
@@ -32,6 +33,12 @@ function App() {
 
     setPrice(copyObj);
   }
+
+  const onSendData = useCallback(() => {
+    if (data) {
+      WebApp.sendData(JSON.stringify(data));
+    }
+  }, []);
 
   useEffect(() => {
     const isSomeprice = Object.values(price).some((value) => value);
@@ -54,13 +61,22 @@ function App() {
         price: pricesObj
       }
 
+      setData(payload);
+
       WebApp.MainButton.show();
       WebApp.MainButton.text = 'Создать объявление';
-      WebApp.MainButton.onClick(() => { WebApp.sendData(JSON.stringify(payload)) });
+      WebApp.onEvent('mainButtonClicked', onSendData);
       console.log(payload);
     } else {
+      setData(null);
       WebApp.MainButton.hide();
     }
+
+
+    return () => {
+      WebApp.MainButton.hide();
+      WebApp.offEvent('mainButtonClicked', onSendData);
+    };
 
   }, [city, address, room, phone, price])
 
