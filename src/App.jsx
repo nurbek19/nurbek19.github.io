@@ -38,7 +38,7 @@ function App() {
     if (data) {
       WebApp.sendData(JSON.stringify(data));
     }
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     const isSomeprice = Object.values(price).some((value) => value);
