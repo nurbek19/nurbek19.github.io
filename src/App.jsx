@@ -55,7 +55,8 @@ function App() {
       }
 
       WebApp.MainButton.show();
-      WebApp.MainButton.onClick(() => WebApp.sendData(payload))
+      WebApp.MainButton.text = 'Создать объявление';
+      WebApp.MainButton.onClick(() => { WebApp.sendData(JSON.stringify(payload)) });
       console.log(payload);
     } else {
       WebApp.MainButton.hide();
