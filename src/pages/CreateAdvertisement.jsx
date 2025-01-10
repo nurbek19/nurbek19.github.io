@@ -86,10 +86,11 @@ function CreateAdvertisement() {
 
   }, [city, address, room, phone, price])
 
+  console.log(WebApp.initDataUnsafe?.user, WebApp.initDataUnsafe?.query_id);
 
   return (
     <div>
-      <Link to={`/my-houses?owner_id=${WebApp.initDataUnsafe?.user.id}`}>My houses</Link>
+      <Link to={`/my-houses?owner_id=${WebApp.initDataUnsafe?.user?.id}`}>My houses</Link>
 
       <div className="field-wrapper select-wrapper">
         <label htmlFor="city" className="field-label">Город</label>
