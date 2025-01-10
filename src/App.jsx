@@ -1,16 +1,16 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
 import CreateAdvertisement from "./pages/CreateAdvertisement";
 import OwnerAdvertisementsList from "./pages/OwnerAdvertisementsList";
 
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route index element={<CreateAdvertisement />} />
         <Route path="my-houses" element={<OwnerAdvertisementsList />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
