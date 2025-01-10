@@ -29,10 +29,7 @@ function OwnerAdvertisementsList() {
 
     useEffect(() => {
         const id = searchParams.get('owner_id');
-        const controller = new AbortController();
-        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${id}`, {
-            signal: controller.signal
-            }).then((res) => {
+        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${id}`).then((res) => {
             if (res.data) {
                 setData(res.data);
 
@@ -47,10 +44,6 @@ function OwnerAdvertisementsList() {
                 console.log(res.data);
             }
         })
-
-        return () => {
-            controller.abort();
-          };
     }, []);
 
 

@@ -69,7 +69,7 @@ function CreateAdvertisement() {
       console.log(data);
       setData(payload);
 
-      WebApp.MainButton.show();
+      WebApp.MainButton.isVisible = true;
       WebApp.MainButton.text = 'Создать объявление';
       WebApp.onEvent('mainButtonClicked', onSendData);
       console.log(payload);
@@ -89,7 +89,6 @@ function CreateAdvertisement() {
 
   return (
     <div>
-      <Link to={`/my-houses?owner_id=108683062`}>My houses</Link>
 
       <div className="field-wrapper select-wrapper">
         <label htmlFor="city" className="field-label">Город</label>
