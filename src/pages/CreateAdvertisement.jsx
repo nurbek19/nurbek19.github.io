@@ -90,7 +90,7 @@ function CreateAdvertisement() {
 
   return (
     <div>
-      <Link to={`/my-houses?owner_id=${WebApp.initDataUnsafe?.user?.id}`}>My houses</Link>
+      <Link to={`/my-houses?owner_id=108683062`}>My houses</Link>
 
       <div className="field-wrapper select-wrapper">
         <label htmlFor="city" className="field-label">Город</label>
