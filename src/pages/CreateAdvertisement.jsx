@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 import { useIMask } from 'react-imask';
+import { Link } from 'react-router-dom';
 
 import PriceField from '../components/PriceField';
 import '../App.css';
@@ -88,6 +89,8 @@ function CreateAdvertisement() {
 
   return (
     <div>
+      <Link to={`/my-houses?owner_id=${WebApp.initDataUnsafe?.user.id}`}>My houses</Link>
+
       <div className="field-wrapper select-wrapper">
         <label htmlFor="city" className="field-label">Город</label>
 
