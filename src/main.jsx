@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <CreateAdvertisement />,
       },
       {
-        path: "/vite-react-router/my-houses",
+        path: "/nurbek19.github.io/my-houses",
         element: <OwnerAdvertisementsList />,
       },
     ],
