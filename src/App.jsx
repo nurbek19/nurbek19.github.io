@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<CreateAdvertisement />} />
-        <Route path="my-houses" element={<OwnerAdvertisementsList />} />
+        <Route path="/my-houses" element={<OwnerAdvertisementsList />} />
       </Routes>
     </BrowserRouter>
   )
