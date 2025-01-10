@@ -67,6 +67,7 @@ function CreateAdvertisement() {
       }
 
       console.log(data);
+      
       setData(payload);
 
       WebApp.MainButton.show();
