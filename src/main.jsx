@@ -6,6 +6,7 @@ import './index.css'
 import App from './App.jsx'
 
 WebApp.ready();
+WebApp.expand();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
