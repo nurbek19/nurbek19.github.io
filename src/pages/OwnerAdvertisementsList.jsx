@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import WebApp from '@twa-dev/sdk';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 
 import ImageSlider from "../components/ImageSlider";
 
@@ -21,15 +21,17 @@ function OwnerAdvertisementsList() {
     const [docStatuses, setDocStatus] = useState({});
     const [payload, setPayload] = useState(null);
 
-    const [searchParams] = useSearchParams();
+    // const [searchParams] = useSearchParams();
+    const { owner_id } = useParams();
+
 
     useEffect(() => {
         WebApp.expand();
       }, []);
 
     useEffect(() => {
-        const id = searchParams.get('owner_id');
-        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${id}`).then((res) => {
+        // const id = searchParams.get('owner_id');
+        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${owner_id}`).then((res) => {
             if (res.data) {
                 setData(res.data);
 
@@ -92,6 +94,7 @@ function OwnerAdvertisementsList() {
 
     return (
         <div>
+            <h1>My houses list</h1>
             {data.map((item) => (
                 <div key={item._id} className="card-container">
                     <div className="card-actions">
