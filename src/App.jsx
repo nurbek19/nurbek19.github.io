@@ -49,7 +49,7 @@ function App() {
 
       for (let key in price) {
         if (price[key]) {
-          pricesObj[key] = price[key];
+          pricesObj[key] = parseInt(price[key]);
         }
       }
 
@@ -57,10 +57,11 @@ function App() {
         city,
         address,
         phone,
-        room_count: room,
+        room_count: parseInt(room),
         price: pricesObj
       }
 
+      console.log(data);
       setData(payload);
 
       WebApp.MainButton.show();
