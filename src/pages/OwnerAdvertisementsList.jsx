@@ -21,8 +21,8 @@ function OwnerAdvertisementsList() {
     const [docStatuses, setDocStatus] = useState({});
     const [payload, setPayload] = useState(null);
 
-    const [searchParams] = useSearchParams();
-    // const { owner_id } = useParams();
+    // const [searchParams] = useSearchParams();
+    const { owner_id } = useParams();
 
 
     useEffect(() => {
@@ -30,8 +30,8 @@ function OwnerAdvertisementsList() {
       }, []);
 
     useEffect(() => {
-        const id = searchParams.get('owner_id');
-        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${id}`).then((res) => {
+        // const id = searchParams.get('owner_id');
+        axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${owner_id}`).then((res) => {
             if (res.data) {
                 setData(res.data);
 

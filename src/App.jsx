@@ -5,10 +5,10 @@ import OwnerAdvertisementsList from "./pages/OwnerAdvertisementsList";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<CreateAdvertisement />} />
-        <Route path="/my-houses" element={<OwnerAdvertisementsList />} />
+        <Route path="/my-houses/owner_id" element={<OwnerAdvertisementsList />} />
       </Routes>
     </BrowserRouter>
   )
