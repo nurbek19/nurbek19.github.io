@@ -86,7 +86,6 @@ function CreateAdvertisement() {
 
   }, [city, address, room, phone, price])
 
-  console.log(WebApp.initDataUnsafe?.user, WebApp.initDataUnsafe?.query_id);
 
   return (
     <div>

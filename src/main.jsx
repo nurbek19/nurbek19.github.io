@@ -13,15 +13,15 @@ WebApp.expand();
 
 const router = createBrowserRouter([
   {
-    path: "/nurbek19.github.io/",
+    path: "/",
     element: <App />,
     children: [
       {
-        path: "/nurbek19.github.io/",
+        path: "/",
         element: <CreateAdvertisement />,
       },
       {
-        path: "/nurbek19.github.io/my-houses",
+        path: "/my-houses",
         element: <OwnerAdvertisementsList />,
       },
     ],
