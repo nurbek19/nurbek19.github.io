@@ -24,6 +24,10 @@ function OwnerAdvertisementsList() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
+        WebApp.expand();
+      }, []);
+
+    useEffect(() => {
         axios.get(`https://ainur-khakimov.ru/dom24/houses?owner_id=${searchParams.get('owner_id')}`).then((res) => {
             if (res.data) {
                 setData(res.data);
@@ -110,7 +114,7 @@ function OwnerAdvertisementsList() {
 
                     <div className="card-prices">
                         {Object.entries(item.price).map(([key, value]) => (
-                            <p key={key}>{emojiObj[key]} {value}4000</p>
+                            <p key={key}>{emojiObj[key]} {value}</p>
                         ))}
                     </div>
                 </div>
